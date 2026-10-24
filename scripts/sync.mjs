@@ -6,11 +6,13 @@ import path from 'node:path'
 import { transform } from './transform.mjs'
 
 const root = path.resolve(import.meta.dirname, '..')
-const src = path.join(root, 'src')
+const src = path.join(root, 'src', '_packages')
 const cache = path.join(root, '.cache')
 const packages = JSON.parse(fs.readFileSync(path.join(root, 'packages.json'), 'utf8'))
 
 fs.mkdirSync(cache, { recursive: true })
+fs.rmSync(src, { recursive: true, force: true })
+fs.mkdirSync(src, { recursive: true })
 
 const slugify = (s) =>
   s.toLowerCase().replace(/<[^>]+>/g, '').replace(/`/g, '').replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-')
@@ -53,7 +55,7 @@ for (const pkg of packages) {
     // Placeholder until the package repo ships docs/*.md.
     const readme = fs.existsSync(path.join(dir, 'README.md')) ? fs.readFileSync(path.join(dir, 'README.md'), 'utf8') : ''
     const body = readme.replace(/^#\s+.*\n/, '')
-    const md = `---\ntitle: ${pkg.name}\nplaceholder: true\n---\n\n# ${pkg.name}\n\n::: warning PLACEHOLDER\nFull documentation for this package is not published yet. Until \`${pkg.docsDir || 'docs'}/\` lands in [${pkg.repo}](https://github.com/${pkg.repo}), this page mirrors the package README (\`${ref}@${sha}\`).\n:::\n\n${body}\n`
+    const md = `---\ntitle: ${pkg.name}\nplaceholder: true\neditLink: https://github.com/${pkg.repo}/blob/${ref}/README.md\n---\n\n# ${pkg.name}\n\n::: warning PLACEHOLDER\nFull documentation for this package is not published yet. Until \`${pkg.docsDir || 'docs'}/\` lands in [${pkg.repo}](https://github.com/${pkg.repo}), this page mirrors the package README (\`${ref}@${sha}\`).\n:::\n\n${body}\n`
     fs.writeFileSync(path.join(src, `${pkg.slug}.md`), md)
     pages.push({ text: 'README (placeholder)', link: `/${pkg.slug}`, items: headings(md) })
   } else {
@@ -78,4 +80,4 @@ for (const pkg of packages) {
   console.log(`synced ${pkg.slug} @ ${ref} (${sha}): ${files.length ? files.join(', ') : 'placeholder from README'}`)
 }
 
-fs.writeFileSync(path.join(src, '.vitepress', 'packages.generated.json'), JSON.stringify(manifest, null, 2))
+fs.writeFileSync(path.join(root, 'src', '.vitepress', 'packages.generated.json'), JSON.stringify(manifest, null, 2))

@@ -41,3 +41,11 @@ npx wrangler deploy   # manual deploy (needs `wrangler login`)
 ## Deploys
 
 Cloudflare Worker `docs` with static assets (`wrangler.jsonc`), custom domain `docs.jordanpartridge.us`. Build command `npm run build`, deploy command `npx wrangler deploy`.
+
+## Drafts
+
+A page with `draft: true` in its frontmatter is left out of the build, sidebar, sitemap, search and `llms*.txt`. Preview everything with `DRAFTS=1 npm run dev`. To publish a page, delete its `draft: true` line. Copy about Jordan himself (Introduction, Hiring Jordan, Workflow fit, For AI agents, `data/hire.json`) is also git-ignored until he approves it, so it is neither deployed nor in this public repo.
+
+## Discovery
+
+The build writes `/llms.txt`, `/llms-full.txt`, `/robots.txt` (AI crawlers allowed), `/sitemap.xml`, OpenGraph tags, and schema.org JSON-LD on every page (Person, WebSite, `SoftwareSourceCode` per package, `Service`/`Offer` per published tier). `/hire.json` is generated from `data/hire.json` once that file is approved.

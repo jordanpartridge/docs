@@ -1,65 +1,65 @@
-import { defineConfig, type DefaultTheme } from 'vitepress'
-import fs from 'node:fs'
+import { defineConfig, type HeadConfig } from 'vitepress'
+import { SITE_URL, SHOW_DRAFTS, draftFiles, packages, sidebarGroups } from './site.mts'
+import { jsonLdFor, writeDiscovery } from './discovery.mts'
 
-type Pkg = {
-  slug: string; name: string; repo: string; composer: string; description: string
-  placeholder: boolean; pages: { text: string; link: string; items: { text: string; anchor: string }[] }[]
-}
-
-const manifestUrl = new URL('./packages.generated.json', import.meta.url)
-const packages: Pkg[] = fs.existsSync(manifestUrl) ? JSON.parse(fs.readFileSync(manifestUrl, 'utf8')) : []
-
-// One sidebar per package, keyed by its URL prefix: pages, each with its H2 sections.
-const sidebar: DefaultTheme.SidebarMulti = Object.fromEntries(
-  packages.map((p) => [
-    `/${p.slug}`,
-    [
-      { text: '← All packages', link: '/' },
-      ...p.pages.map((page) => ({
-        text: page.text,
-        link: page.link,
-        collapsed: false,
-        items: page.items.map((h) => ({ text: h.text, link: `${page.link}#${h.anchor}` })),
-      })),
-      {
-        text: 'Links',
-        items: [
-          { text: 'GitHub', link: `https://github.com/${p.repo}` },
-          { text: 'Packagist', link: `https://packagist.org/packages/${p.composer}` },
-        ],
-      },
-    ],
-  ]),
-)
+const DESCRIPTION = 'Documentation for open-source Laravel packages by Jordan Partridge.'
 
 export default defineConfig({
-  title: 'Jordan Partridge',
+  title: 'Jordan Partridge Docs',
   titleTemplate: ':title · Jordan Partridge Docs',
-  description: 'Documentation for Laravel packages by Jordan Partridge.',
+  description: DESCRIPTION,
   lang: 'en-US',
   cleanUrls: true,
   // Synced package docs may link to laravel.com-style paths we don't host; don't fail the whole site on them.
   ignoreDeadLinks: true,
-  lastUpdated: false,
-  appearance: true,
-  head: [['meta', { name: 'theme-color', content: '#f53003' }]],
-  markdown: {
-    theme: { light: 'github-light', dark: 'github-dark' },
+  srcExclude: SHOW_DRAFTS ? [] : draftFiles,
+  // Package docs are synced into src/_packages/ but served at /<package>.
+  rewrites: { '_packages/:page': ':page', '_packages/:pkg/:page': ':pkg/:page' },
+  sitemap: { hostname: SITE_URL, transformItems: (items) => items.filter((i) => !/\/404$/.test(i.url) && i.url !== '404') },
+  head: [
+    ['meta', { name: 'theme-color', content: '#f53003' }],
+    ['meta', { property: 'og:site_name', content: 'Jordan Partridge Docs' }],
+    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { name: 'twitter:site', content: '@Shadetheory' }],
+    ['link', { rel: 'alternate', type: 'text/plain', href: '/llms.txt', title: 'llms.txt' }],
+    ...(SHOW_DRAFTS ? [['meta', { name: 'robots', content: 'noindex' }] as HeadConfig] : []),
+  ],
+  transformHead({ pageData, title, description }) {
+    const route = pageData.relativePath.replace(/^_packages\//, '').replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+    const url = `${SITE_URL}/${route}`
+    return [
+      ['link', { rel: 'canonical', href: url }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description || DESCRIPTION }],
+      ['meta', { property: 'og:url', content: url }],
+      ['meta', { property: 'og:type', content: route === '' ? 'website' : 'article' }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description || DESCRIPTION }],
+      ['script', { type: 'application/ld+json' }, JSON.stringify(jsonLdFor(pageData.relativePath))],
+    ]
   },
+  buildEnd(siteConfig) {
+    writeDiscovery(siteConfig.outDir)
+  },
+  markdown: { theme: { light: 'github-light', dark: 'github-dark' } },
   themeConfig: {
-    siteTitle: 'Jordan Partridge · Docs',
+    siteTitle: 'Jordan Partridge Docs',
     nav: [
       { text: 'Packages', items: packages.map((p) => ({ text: p.name, link: `/${p.slug}` })) },
+      { text: 'Services', link: '/services' },
       { text: 'Hire Jordan', link: 'https://jordanpartridge.us' },
     ],
     socialLinks: [{ icon: 'github', link: 'https://github.com/jordanpartridge' }],
-    sidebar,
+    sidebar: sidebarGroups,
     outline: { level: [2, 3], label: 'On this page' },
     search: { provider: 'local' },
-    editLink: { pattern: ({ frontmatter }: any) => frontmatter.editLink ?? 'https://github.com/jordanpartridge/docs', text: 'Edit this page on GitHub' },
+    editLink: {
+      pattern: ({ frontmatter, filePath }: any) => frontmatter.editLink ?? `https://github.com/jordanpartridge/docs/edit/main/src/${filePath}`,
+      text: 'Edit this page on GitHub',
+    },
     footer: {
-      message: '<a href="https://jordanpartridge.us">Hire Jordan</a> · <a href="https://github.com/jordanpartridge">GitHub</a>',
-      copyright: 'Docs are synced from each package repository. MIT licensed packages.',
+      message: '<a href="https://jordanpartridge.us">Hire Jordan</a> · <a href="https://github.com/jordanpartridge">GitHub</a> · <a href="/llms.txt">llms.txt</a>',
+      copyright: 'Package docs are synced from each package repository.',
     },
   },
 })

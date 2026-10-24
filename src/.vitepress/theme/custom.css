@@ -43,3 +43,15 @@
   font-size: 0.72rem; padding: 2px 8px; border-radius: 999px;
   background: var(--vp-c-warning-soft); color: var(--vp-c-warning-1);
 }
+
+.home-more { max-width: 1152px; margin: 0 auto; padding: 8px 24px 48px; color: var(--vp-c-text-2); }
+.home-more a { color: var(--vp-c-brand-1); font-weight: 500; }
+
+.svc-tiers { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); margin-top: 16px; }
+.svc-tier { border: 1px solid var(--vp-c-divider); border-radius: 12px; padding: 16px 18px; background: var(--vp-c-bg-soft); display: flex; flex-direction: column; }
+.svc-tier h3 { margin: 0 !important; font-size: 1.05rem; }
+.svc-price { margin: 6px 0 4px !important; font-size: 1.4rem; font-weight: 700; }
+.svc-price span { font-size: 0.85rem; font-weight: 400; color: var(--vp-c-text-2); }
+.svc-tier ul { padding-left: 1.1em; margin: 8px 0 12px !important; font-size: 0.9rem; flex: 1; }
+.svc-tier li { margin: 4px 0 !important; }
+.svc-start, .svc-book { font-size: 0.88rem; font-weight: 600; color: var(--vp-c-brand-1) !important; }

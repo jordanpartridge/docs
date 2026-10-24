@@ -1,0 +1,50 @@
+{
+  "source": "https://jordanpartridge.us/services",
+  "checked": "2026-10-23",
+  "contact": "https://jordanpartridge.us/#contact",
+  "bookingNote": "No public checkout or booking links exist yet (payment_link is null for every tier on jordanpartridge.us). Each tier starts with the contact form.",
+  "services": [
+    {
+      "slug": "laravel-lift",
+      "name": "Laravel Lift",
+      "summary": "Get a Laravel app back on a supported version, tested and explained.",
+      "url": "https://jordanpartridge.us/services/laravel-upgrade",
+      "tiers": [
+        { "name": "Upgrade Audit", "price": 349, "delivery": "3 days", "bookUrl": null,
+          "includes": ["Version inventory for PHP, Laravel, and packages", "A blocker list", "A step-by-step plan", "A fixed quote for the upgrade"] },
+        { "name": "One Major Version", "price": 1250, "delivery": "7 days", "bookUrl": null,
+          "includes": ["One Laravel major, for example 11 to 12, or 12 to 13", "Composer updates", "Deprecations fixed", "Smoke tests added", "Deployed on a branch"] },
+        { "name": "Multi-Version + PHP", "price": 2900, "delivery": "14 days", "bookUrl": null,
+          "includes": ["Several Laravel majors plus a PHP upgrade, for example Laravel 9 to 13 and PHP 8.1 to 8.4", "Tests around critical flows first", "A staged rollout"] }
+      ]
+    },
+    {
+      "slug": "laravel-ai-bridge",
+      "name": "Laravel AI Bridge",
+      "summary": "Connect a Laravel app to AI agents safely, with permissions, tests and logs.",
+      "url": "https://jordanpartridge.us/services/laravel-ai-mcp",
+      "tiers": [
+        { "name": "MCP Server", "price": 750, "delivery": "5 days", "bookUrl": null,
+          "includes": ["A laravel/mcp server with up to 3 read-only tools or resources from your app", "Sanctum or OAuth auth", "Tests", "A setup guide for Claude, ChatGPT, and Cursor"] },
+        { "name": "AI Feature", "price": 1800, "delivery": "10 days", "bookUrl": null,
+          "includes": ["One in-app AI feature (summarize, classify, draft, or chat over the app's own data) using laravel/ai", "Guardrails, logging, and tests", "Or an MCP server with write tools and per-user permissions"] },
+        { "name": "Agent Workflow", "price": 3500, "delivery": "15 days", "bookUrl": null,
+          "includes": ["An agent that uses the app's own MCP tools plus one external service", "Queued jobs", "An audit trail", "A cost dashboard in Filament"] }
+      ]
+    },
+    {
+      "slug": "ship-ready-audit",
+      "name": "Ship-Ready Audit",
+      "summary": "A senior Laravel review of an app you or an AI built, with the risky parts fixed before real users find them.",
+      "url": "https://jordanpartridge.us/services/ship-ready-audit",
+      "tiers": [
+        { "name": "Audit", "price": 399, "delivery": "3 days", "bookUrl": null,
+          "includes": ["Security: auth, mass assignment, secrets, dependencies, and PHP version", "Performance: N+1 queries, slow pages, and queues", "Launch readiness", "A ranked fix list"] },
+        { "name": "Audit + Fix Pack", "price": 1500, "delivery": "7 days", "bookUrl": null,
+          "includes": ["The audit", "The top 5 fixes shipped as pull requests with tests"] },
+        { "name": "Hardening Sprint", "price": 3500, "delivery": "14 days", "bookUrl": null,
+          "includes": ["The audit", "All high and critical fixes", "CI with tests and static analysis", "Error monitoring and backups checked"] }
+      ]
+    }
+  ]
+}

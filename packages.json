@@ -5,7 +5,7 @@
     "repo": "jordanpartridge/laravel-ai-parallel-tools",
     "composer": "jordanpartridge/laravel-ai-parallel-tools",
     "description": "Run opted-in tool calls from one Laravel AI agent step concurrently.",
-    "ref": "main",
+    "ref": "cursor/parallel-tools-docs-8516",
     "docsDir": "docs",
     "index": "parallel-tools.md"
   }

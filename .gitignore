@@ -1,13 +1,15 @@
 node_modules/
 .cache/
+.worker/
+.wrangler/
 src/.vitepress/dist/
 src/.vitepress/cache/
 src/.vitepress/packages.generated.json
-.wrangler/
-# Synced from package repos at build time (packages.json is the source list)
-src/*/
-!src/.vitepress/
-!src/public/
-src/*.md
-!src/index.md
-!src/404.md
+# Synced from each package repo at build time (see packages.json)
+src/_packages/
+# Unapproved copy about Jordan: kept local (not in this public repo, not deployed) until he approves it.
+src/introduction.md
+src/hiring.md
+src/workflow-fit.md
+src/for-ai-agents.md
+data/hire.json
