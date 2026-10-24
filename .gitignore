@@ -1,0 +1,13 @@
+node_modules/
+.cache/
+src/.vitepress/dist/
+src/.vitepress/cache/
+src/.vitepress/packages.generated.json
+.wrangler/
+# Synced from package repos at build time (packages.json is the source list)
+src/*/
+!src/.vitepress/
+!src/public/
+src/*.md
+!src/index.md
+!src/404.md

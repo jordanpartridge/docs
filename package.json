@@ -1,0 +1,17 @@
+{
+  "name": "jordanpartridge-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync.mjs",
+    "dev": "node scripts/sync.mjs && vitepress dev src",
+    "build": "node scripts/sync.mjs && vitepress build src",
+    "preview": "vitepress preview src",
+    "deploy": "npm run build && wrangler deploy",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4",
+    "wrangler": "^4.52.0"
+  }
+}
