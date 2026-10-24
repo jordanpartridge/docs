@@ -40,7 +40,11 @@ npx wrangler deploy   # manual deploy (needs `wrangler login`)
 
 ## Deploys
 
-Cloudflare Worker `docs` with static assets (`wrangler.jsonc`), custom domain `docs.jordanpartridge.us`. Build command `npm run build`, deploy command `npx wrangler deploy`.
+Cloudflare Worker `docs` on the free plan, custom domain `docs.jordanpartridge.us`.
+
+- **Today (manual):** the live version was uploaded through the Cloudflare API as a self-contained Worker built by `node scripts/bundle-worker.mjs` (no wrangler login or API token needed). Re-run `npm run build && node scripts/bundle-worker.mjs` and upload `.worker/worker.js` the same way to redeploy.
+- **Auto-deploy on push (needs one dashboard click):** connect this repo under Workers & Pages → `docs` → Settings → Build → Connect (Cloudflare's GitHub app, free). Build command `npm run build`, deploy command `npx wrangler deploy`. From then on every push to `main` deploys, using `wrangler.jsonc` (static assets).
+- **Locally:** `npx wrangler login` once, then `npm run deploy`.
 
 ## Drafts
 
