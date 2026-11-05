@@ -8,7 +8,7 @@ const person = {
   '@id': `${SITE_URL}/#jordan`,
   name: 'Jordan Partridge',
   url: 'https://jordanpartridge.us',
-  sameAs: ['https://github.com/jordanpartridge', 'https://packagist.org/packages/jordanpartridge/'],
+  sameAs: ['https://github.com/shadetheory', 'https://packagist.org/packages/jordanpartridge/'],
 }
 
 const pkgLd = (p: any) => ({
@@ -80,7 +80,7 @@ export function writeDiscovery(outDir: string) {
   if (extra.length) { L.push('', '## About', ''); for (const p of extra) L.push(`- [${p.title}](${p.url})`) }
   L.push('', '## Optional', '', `- [Full text of every page](${SITE_URL}/llms-full.txt)`, `- [Sitemap](${SITE_URL}/sitemap.xml)`)
   if (SHOW_DRAFTS || !hire.draft) L.push(`- [Machine-readable hiring info](${SITE_URL}/hire.json)`)
-  L.push('- [GitHub](https://github.com/jordanpartridge)', '- [Website](https://jordanpartridge.us)')
+  L.push('- [GitHub](https://github.com/shadetheory)', '- [Website](https://jordanpartridge.us)')
   fs.writeFileSync(path.join(outDir, 'llms.txt'), L.join('\n') + '\n')
 
   const full: string[] = ['# Jordan Partridge Docs (full text)', '', `Source: ${SITE_URL}`, '']

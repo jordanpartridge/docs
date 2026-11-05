@@ -38,6 +38,9 @@ export function transform(md, { slug, pageMap }) {
   // 4. Older laravel/docs callouts: "> {note} text" / "> {tip} text" -> GitHub alerts.
   text = text.replace(/^>\s*\{(note|tip|warning|important|caution)\}\s*/gim, (_, k) => `> [!${k.toUpperCase()}]\n> `)
 
+  // 5. GitHub username rename. Composer/Packagist names (jordanpartridge/*) are left as-is.
+  text = text.replaceAll('https://github.com/jordanpartridge', 'https://github.com/shadetheory')
+
   return text
 }
 

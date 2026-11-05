@@ -17,3 +17,8 @@ test('keeps GitHub alerts and in-page links', () => {
   assert.match(out, /\]\(#installation\)/)
 })
 test('rewrites sibling page links', () => assert.match(out, /\]\(\/pkg\/other\)/))
+test('rewrites GitHub username and keeps the Composer vendor', () => {
+  assert.match(out, /https:\/\/github\.com\/shadetheory\/laravel-ai-parallel-tools/)
+  assert.doesNotMatch(out, /github\.com\/jordanpartridge/)
+  assert.match(out, /composer require jordanpartridge\/laravel-ai-parallel-tools/)
+})

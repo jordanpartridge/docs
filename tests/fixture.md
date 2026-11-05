@@ -7,7 +7,7 @@
 <a name="introduction"></a>
 ## Introduction
 
-Intro text. See [installation](#installation) and [other](other.md).
+Intro text. See [installation](#installation), [other](other.md), and [the repo](https://github.com/jordanpartridge/laravel-ai-parallel-tools).
 
 > [!NOTE]
 > This is a note.
