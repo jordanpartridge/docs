@@ -23,7 +23,7 @@ The file named by `index` (or the first `.md`) is served at `/<package>`; other 
 Add one entry to `packages.json`:
 
 ```json
-{ "slug": "laravel-git-agent", "name": "Laravel Git Agent", "repo": "jordanpartridge/laravel-git-agent", "composer": "jordanpartridge/laravel-git-agent", "description": "One-line description.", "ref": "main", "docsDir": "docs", "index": "git-agent.md" }
+{ "slug": "laravel-git-agent", "name": "Laravel Git Agent", "repo": "shadetheory/laravel-git-agent", "composer": "jordanpartridge/laravel-git-agent", "description": "One-line description.", "ref": "main", "docsDir": "docs", "index": "git-agent.md" }
 ```
 
 Push to `main`. To preview an unmerged docs branch, set `ref` to it, or build with `PKG_REF_LARAVEL_GIT_AGENT=my-branch npm run build`.
