@@ -13,6 +13,3 @@ aside: false
 
 <PackageGrid />
 
-<div class="home-more">
-  <a href="/services">Services</a> · <a href="https://jordanpartridge.us">Hire Jordan</a> · <a href="/llms.txt">llms.txt</a>
-</div>
